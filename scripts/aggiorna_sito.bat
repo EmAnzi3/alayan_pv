@@ -1,13 +1,13 @@
 @echo off
 setlocal
 
-cd /d C:\Users\anzillotti\Documents\GitHub\alayan_pv
+cd /d "C:\Users\anzillotti\OneDrive - CGT Edilizia S.p.a\Documenti\GitHub\alayan_pv"
 
 echo.
 echo === Generazione sito Alayan PV ===
 echo.
 
-python scripts\generate_site.py
+python "scripts\generate_site.py"
 if errorlevel 1 (
     echo.
     echo Errore durante la generazione del sito.
@@ -17,7 +17,7 @@ if errorlevel 1 (
 
 git add .
 git diff --cached --quiet
-if not errorlevel 1 (
+if %errorlevel%==0 (
     echo.
     echo Nessuna modifica da pubblicare.
     pause
