@@ -1,31 +1,17 @@
-# Alayan PV — GitHub Pages package
+# Setup aggiornamento sito Alayan PV
 
-Pacchetto pronto da caricare nel repository `EmAnzi3/alayan_pv`.
+## File inclusi
+- scripts/config.json
+- scripts/aggiorna_sito.bat
+- scripts/generate_site.py
 
-## Struttura
-- `docs/` → sito statico da pubblicare con GitHub Pages
-- `input_xlsx/` → file Excel sorgente caricati come riferimento
-- `templates_base/` → i due file HTML base corretti manualmente (`index.html` e `catania.html`)
-- `.nojekyll` → evita trasformazioni Jekyll inutili su GitHub Pages
-
-## Pubblicazione su GitHub Pages
-1. Carica il contenuto di questo pacchetto nel repo.
-2. Vai su **Settings → Pages**.
-3. In **Build and deployment**, seleziona **Deploy from a branch**.
-4. Branch: `main`
-5. Folder: `/docs`
-6. Salva.
-
-## Aggiornamento rapido
-Quando vorrai sostituire il sito pubblicato:
-1. aggiorna i file in `docs/`
-2. fai commit e push
-3. GitHub Pages ripubblica il sito
+## Percorsi configurati
+- Aggregatore:
+  C:\Users\anzillotti\OneDrive - CGT Edilizia S.p.a\Alayan Fotovoltaico\Aggregatori
+- Filiali:
+  C:\Users\anzillotti\OneDrive - CGT Edilizia S.p.a\Alayan Fotovoltaico\Filiali
 
 ## Nota
-Questo pacchetto contiene la versione statica più recente del sito con:
-- overview nazionale
-- pagine filiale
-- gantt chart globale e per filiale
-- filtri attivi
-- correzione date "Ultimo aggiornamento"
+generate_site.py qui è uno scheletro con percorsi già impostati.
+Se hai già un generatore HTML funzionante, usa questo config.json
+e questo aggiorna_sito.bat, ma mantieni la tua versione completa di generate_site.py.
