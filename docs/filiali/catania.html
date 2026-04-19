@@ -67,11 +67,35 @@ tbody tr td:last-child{border-right:1px solid #f0e7d8;border-radius:0 12px 12px 
 .progress .fill{height:100%;background:linear-gradient(90deg,#e2a13f,var(--gold));border-radius:999px}
 .footer{margin-top:12px;color:var(--muted);font-size:13px}
 
+
+.nav-card{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:22px;padding:16px 16px 14px;box-shadow:0 10px 30px rgba(80,60,20,.05);margin-bottom:16px}
+.nav-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;margin-bottom:12px}
+.nav-title{font-size:18px;font-weight:800}
+.nav-sub{font-size:13px;color:var(--muted)}
+.nav-jump{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.nav-select{flex:1 1 320px;min-width:240px}
+.branch-link{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:#fffdf9;color:var(--text);text-decoration:none;font-weight:700;font-size:14px;transition:.15s ease;min-height:48px}
+.branch-link:hover{transform:translateY(-1px);border-color:#d7c29b;background:#fffaf1}
+.branch-link.home-link{background:#f4e5c8;color:var(--gold);border-color:#ead3a8}
+.branch-link.disabled{pointer-events:none;opacity:.45}
+.bar-name-link{color:var(--text);text-decoration:none;font-weight:700}
+.bar-name-link:hover{color:var(--blue)}
+.bar-row.clickable{cursor:pointer}
+.back-top{margin:0 0 16px;display:flex;justify-content:flex-start}
+.back-top .branch-link{box-shadow:0 8px 24px rgba(80,60,20,.06)}
+
 .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
 .top-link{display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fffdf9;color:var(--text);text-decoration:none;font-weight:700;font-size:14px;transition:.15s ease}
 .top-link:hover{transform:translateY(-1px);border-color:#d7c29b;background:#fffaf1}
 .top-link.primary{background:#f4e5c8;color:var(--gold);border-color:#ead3a8}
 @media (max-width:700px){.top-actions{display:grid;grid-template-columns:1fr;width:100%}.top-link{justify-content:center}}
+
+@media (max-width:700px){
+  .nav-head{flex-direction:column;align-items:flex-start}
+  .nav-jump{display:grid;grid-template-columns:1fr;width:100%}
+  .nav-select,.nav-jump .branch-link,.back-top .branch-link{width:100%}
+}
+
 @media (max-width: 980px) {
   .wrap{padding:22px 18px 32px}
   .header{flex-direction:column;gap:14px;align-items:flex-start}
