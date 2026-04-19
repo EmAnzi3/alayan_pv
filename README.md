@@ -1,17 +1,18 @@
-# Setup aggiornamento sito Alayan PV
+# Alayan PV - generatore sito
 
-## File inclusi
-- scripts/config.json
-- scripts/aggiorna_sito.bat
-- scripts/generate_site.py
+## Come usarlo
+1. Copia la cartella `scripts` dentro il repo locale `alayan_pv`.
+2. Verifica che `docs/` esista nel repo.
+3. Fai doppio clic su `scripts/aggiorna_sito.bat`.
+4. Quando la generazione è finita, apri GitHub Desktop e fai commit + push.
 
-## Percorsi configurati
-- Aggregatore:
-  C:\Users\anzillotti\OneDrive - CGT Edilizia S.p.a\Alayan Fotovoltaico\Aggregatori
-- Filiali:
-  C:\Users\anzillotti\OneDrive - CGT Edilizia S.p.a\Alayan Fotovoltaico\Filiali
+## Cosa genera
+- `docs/index.html`
+- `docs/filiali/*.html`
 
-## Nota
-generate_site.py qui è uno scheletro con percorsi già impostati.
-Se hai già un generatore HTML funzionante, usa questo config.json
-e questo aggiorna_sito.bat, ma mantieni la tua versione completa di generate_site.py.
+## Regole già incluse
+- conteggio agrivoltaico leggendo la parola `agrivoltaico` nelle note
+- filtro area -> filiale dipendente nella overview
+- Gantt chart in overview e nelle singole filiali
+- correzione date sporche tipo `01 Jan 1970`
+- link overview <-> filiali

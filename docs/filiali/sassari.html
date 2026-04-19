@@ -5,19 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Pipeline Fotovoltaico - Filiale Sassari</title>
 <style>
-:root {
+:root{
   --bg:#f4efe7; --card:#fbf8f3; --line:#e2d8c7; --text:#2f2a24; --muted:#6d655d;
-  --gold:#c98318; --blue:#245e8a; --green:#2b7a69; --chip:#efe4cf;
+  --gold:#c98318; --blue:#245e8a; --green:#2b7a69; --chip:#efe4cf; --olive:#6a8f2a;
+  --violet:#a06cd5; --brown:#8f5f3f; --neutral:#8b8378;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#f5f1ea 0%, #f0e9dd 100%);color:var(--text)}
-.wrap{max-width:1280px;margin:0 auto;padding:28px 28px 40px}
-.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#f5f1ea 0%,#f0e9dd 100%);color:var(--text)}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 24px 40px}
+.top-link{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;color:var(--blue);text-decoration:none;font-weight:700}
+.header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
 .h1{font-size:52px;line-height:1.02;font-weight:800;letter-spacing:-.03em;margin:0}
 .sub{margin-top:8px;color:var(--muted);font-size:17px}
 .badge{padding:8px 12px;border-radius:12px;background:#f4e5c8;color:var(--gold);font-weight:700;font-size:13px}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}
-.card{background:rgba(255,255,255,.68);backdrop-filter: blur(4px);border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;box-shadow:0 10px 30px rgba(80,60,20,.05)}
+.card{background:rgba(255,255,255,.68);backdrop-filter:blur(4px);border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;box-shadow:0 10px 30px rgba(80,60,20,.05)}
 .kpi-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .kpi-value{font-size:44px;font-weight:800;line-height:1;margin:8px 0 6px}
 .kpi-sub{font-size:14px;color:var(--muted)}
@@ -27,7 +29,7 @@ body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-grad
 .panel h3{margin:0 0 12px;font-size:18px;letter-spacing:.02em}
 .flex{display:flex;gap:18px;align-items:center}
 .donut-wrap{width:220px;height:220px;display:grid;place-items:center;position:relative}
-.donut{width:190px;height:190px;border-radius:50%;background:conic-gradient(var(--gold) 0 91.3%, var(--blue) 91.3% 95.7%, var(--green) 95.7% 100%);position:relative}
+.donut{width:190px;height:190px;border-radius:50%;background:conic-gradient(var(--gold) 0 100%);position:relative}
 .donut::after{content:'';position:absolute;inset:32px;background:#fffaf3;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line)}
 .donut-center{position:absolute;text-align:center;z-index:2}
 .donut-center .big{font-size:30px;font-weight:800}
@@ -35,136 +37,88 @@ body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-grad
 .legend-row{display:grid;grid-template-columns:16px 1fr auto;gap:10px;align-items:center;font-size:15px}
 .dot{width:12px;height:12px;border-radius:4px}
 .filters{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 16px}
-.select{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:210px;color:var(--text);font-size:15px}
+.select,.jump-select{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:210px;color:var(--text);font-size:15px}
+.jump{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.jump button{border:0;background:var(--gold);color:#fff;padding:12px 16px;border-radius:14px;font-weight:700;cursor:pointer}
 .note{background:rgba(255,255,255,.58);border:1px dashed var(--line);border-radius:18px;padding:14px 16px;margin:0 0 16px;color:var(--text)}
 .bars{display:grid;gap:10px;margin-top:8px}
 .bars.scrollable{max-height:320px;overflow-y:auto;padding-right:8px}
-.bars.scrollable::-webkit-scrollbar{width:10px}
-.bars.scrollable::-webkit-scrollbar-thumb{background:#dbcaa8;border-radius:999px}
-.bars.scrollable::-webkit-scrollbar-track{background:#f1e8d8;border-radius:999px}
-.bar-row{display:grid;grid-template-columns:100px 1fr 74px;gap:12px;align-items:center}
+.bars.scrollable::-webkit-scrollbar,.table-scroll::-webkit-scrollbar,.gantt-scroll::-webkit-scrollbar{width:10px;height:10px}
+.bars.scrollable::-webkit-scrollbar-thumb,.table-scroll::-webkit-scrollbar-thumb,.gantt-scroll::-webkit-scrollbar-thumb{background:#dbcaa8;border-radius:999px}
+.bars.scrollable::-webkit-scrollbar-track,.table-scroll::-webkit-scrollbar-track,.gantt-scroll::-webkit-scrollbar-track{background:#f1e8d8;border-radius:999px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 80px;gap:12px;align-items:center}
+.bar-row.linkable{cursor:pointer}
+.bar-label-link{color:var(--blue);text-decoration:none;font-weight:700}
 .bar-track{height:18px;background:#f1e8d8;border-radius:999px;overflow:hidden;position:relative}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),#e2a23d);border-radius:999px}
-.table-card{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:22px;padding:16px 16px 8px;box-shadow:0 10px 30px rgba(80,60,20,.05)}
+.table-card{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:22px;padding:16px 16px 8px;box-shadow:0 10px 30px rgba(80,60,20,.05);margin-top:16px}
 .table-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:12px}
 .table-title{font-size:18px;font-weight:800}
 .small{font-size:13px;color:var(--muted)}
 .table-scroll{max-height:520px;overflow:auto;padding-right:6px;border-radius:16px}
-.table-scroll::-webkit-scrollbar{width:10px;height:10px}
-.table-scroll::-webkit-scrollbar-thumb{background:#dbcaa8;border-radius:999px}
-.table-scroll::-webkit-scrollbar-track{background:#f1e8d8;border-radius:999px}
 table{width:100%;min-width:980px;border-collapse:separate;border-spacing:0 8px}
 thead th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 8px 4px}
 tbody td{background:#fffdf9;padding:12px 8px;border-top:1px solid #f0e7d8;border-bottom:1px solid #f0e7d8;font-size:14px}
 tbody tr td:first-child{border-left:1px solid #f0e7d8;border-radius:12px 0 0 12px}
 tbody tr td:last-child{border-right:1px solid #f0e7d8;border-radius:0 12px 12px 0}
 .chip{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
-.aut{background:#f4e5c8;color:var(--gold)} .proc{background:#dceaf5;color:var(--blue)} .costr{background:#dceee7;color:var(--green)}
-.state-pipeline{background:#ece8e2;color:#534b43} .state-attivo{background:#dceee7;color:var(--green)}
+.aut{background:#f4e5c8;color:var(--gold)} .proc{background:#dceaf5;color:var(--blue)} .costr{background:#dceee7;color:var(--green)} .comm{background:#e9efd7;color:var(--olive)}
+.std{background:#efe7fb;color:var(--violet)} .prog{background:#efe1d8;color:var(--brown)}
+.state-pipeline{background:#ece8e2;color:#534b43} .state-attivo{background:#dceee7;color:var(--green)} .state-completato{background:#e9efd7;color:var(--olive)}
 .progress{display:flex;align-items:center;gap:10px}
-.progress > span{min-width:42px;font-weight:700}
+.progress>span{min-width:42px;font-weight:700}
 .progress .track{height:10px;width:110px;background:#efe4d2;border-radius:999px;overflow:hidden}
 .progress .fill{height:100%;background:linear-gradient(90deg,#e2a13f,var(--gold));border-radius:999px}
+.gantt-shell{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 10px 30px rgba(80,60,20,.05);margin-top:16px}
+.gantt-scroll{overflow:auto;border-radius:16px}
+.gantt{min-width:1000px}
+.gantt-header,.gantt-row{display:grid;grid-template-columns:280px 1fr;gap:12px;align-items:center}
+.gantt-header{padding:0 0 8px}
+.gantt-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.gantt-timeline{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(70px,1fr);gap:0;border-left:1px solid #eadfce}
+.gantt-month{font-size:12px;color:var(--muted);padding:0 8px 6px;border-right:1px solid #eadfce}
+.gantt-row{padding:10px 0;border-top:1px solid #efe5d5}
+.gantt-name{font-size:14px;font-weight:700}
+.gantt-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.gantt-track{position:relative;height:32px;background:repeating-linear-gradient(90deg,#faf4ea 0,#faf4ea calc(100%/var(--months)),#f4ead8 calc(100%/var(--months)),#f4ead8 calc(100%/var(--months) + 1px));border-radius:12px;overflow:hidden}
+.gantt-seg{position:absolute;height:16px;top:8px;border-radius:999px;box-shadow:0 1px 0 rgba(255,255,255,.65) inset}
+.gantt-empty{color:var(--muted);padding:12px 0}
 .footer{margin-top:12px;color:var(--muted);font-size:13px}
-
-
-.nav-card{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:22px;padding:16px 16px 14px;box-shadow:0 10px 30px rgba(80,60,20,.05);margin-bottom:16px}
-.nav-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;margin-bottom:12px}
-.nav-title{font-size:18px;font-weight:800}
-.nav-sub{font-size:13px;color:var(--muted)}
-.nav-jump{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.nav-select{flex:1 1 320px;min-width:240px}
-.branch-link{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:#fffdf9;color:var(--text);text-decoration:none;font-weight:700;font-size:14px;transition:.15s ease;min-height:48px}
-.branch-link:hover{transform:translateY(-1px);border-color:#d7c29b;background:#fffaf1}
-.branch-link.home-link{background:#f4e5c8;color:var(--gold);border-color:#ead3a8}
-.branch-link.disabled{pointer-events:none;opacity:.45}
-.bar-name-link{color:var(--text);text-decoration:none;font-weight:700}
-.bar-name-link:hover{color:var(--blue)}
-.bar-row.clickable{cursor:pointer}
-.back-top{margin:0 0 16px;display:flex;justify-content:flex-start}
-.back-top .branch-link{box-shadow:0 8px 24px rgba(80,60,20,.06)}
-
-.top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.top-link{display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fffdf9;color:var(--text);text-decoration:none;font-weight:700;font-size:14px;transition:.15s ease}
-.top-link:hover{transform:translateY(-1px);border-color:#d7c29b;background:#fffaf1}
-.top-link.primary{background:#f4e5c8;color:var(--gold);border-color:#ead3a8}
-@media (max-width:700px){.top-actions{display:grid;grid-template-columns:1fr;width:100%}.top-link{justify-content:center}}
-
-@media (max-width:700px){
-  .nav-head{flex-direction:column;align-items:flex-start}
-  .nav-jump{display:grid;grid-template-columns:1fr;width:100%}
-  .nav-select,.nav-jump .branch-link,.back-top .branch-link{width:100%}
-}
-
-@media (max-width: 980px) {
+@media (max-width:980px){
   .wrap{padding:22px 18px 32px}
   .header{flex-direction:column;gap:14px;align-items:flex-start}
   .cards{grid-template-columns:1fr 1fr}
   .panel-grid{grid-template-columns:1fr}
   .table-head{flex-direction:column;align-items:flex-start}
-  .filters{width:100%}
-  .select{flex:1 1 220px;min-width:180px}
+  .filters,.jump{width:100%}
+  .select,.jump-select{flex:1 1 220px;min-width:180px}
 }
-@media (max-width: 700px) {
+@media (max-width:700px){
   .wrap{padding:16px 12px 24px}
   .cards{grid-template-columns:1fr}
   .h1{font-size:34px}
   .sub{font-size:15px}
-  .card,.panel,.table-card{padding:14px}
+  .card,.panel,.table-card,.gantt-shell{padding:14px}
   .kpi-value{font-size:38px}
-  .bar-row{grid-template-columns:80px 1fr 56px;gap:8px}
+  .bar-row{grid-template-columns:92px 1fr 56px;gap:8px}
   .flex{flex-direction:column;align-items:flex-start}
   .donut-wrap{width:180px;height:180px}
   .donut{width:160px;height:160px}
   .donut::after{inset:28px}
   .legend{min-width:0;width:100%}
-  .filters{display:grid;grid-template-columns:1fr;gap:10px;width:100%}
-  .select{width:100%;min-width:0;padding:11px 12px;font-size:14px}
+  .filters,.jump{display:grid;grid-template-columns:1fr;gap:10px;width:100%}
+  .select,.jump-select{width:100%;min-width:0;padding:11px 12px;font-size:14px}
   .bars.scrollable{max-height:240px}
   .table-scroll{max-height:60vh}
   table{min-width:840px}
-  .footer{font-size:12px}
-}
-
-.gantt-card{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:22px;padding:16px 16px 8px;box-shadow:0 10px 30px rgba(80,60,20,.05)}
-.gantt-scroll{overflow:auto;border-radius:16px;padding-bottom:6px}
-.gantt-scroll::-webkit-scrollbar{width:10px;height:10px}
-.gantt-scroll::-webkit-scrollbar-thumb{background:#dbcaa8;border-radius:999px}
-.gantt-scroll::-webkit-scrollbar-track{background:#f1e8d8;border-radius:999px}
-.gantt{min-width:1100px}
-.gantt-head,.gantt-row{display:grid;grid-template-columns:260px 1fr;gap:12px;align-items:center}
-.gantt-head{padding-bottom:8px;margin-bottom:8px}
-.gantt-label-head{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-left:10px}
-.gantt-months,.gantt-trackline{position:relative}
-.gantt-months{height:38px;border:1px solid var(--line);border-radius:14px;background:#fbf7f0;overflow:hidden}
-.gantt-month{position:absolute;top:0;bottom:0;border-right:1px solid #eadfce;padding:10px 8px 0;font-size:12px;color:var(--muted);white-space:nowrap}
-.gantt-row{min-height:54px;margin-bottom:8px}
-.gantt-label{background:#fffdf9;border:1px solid #f0e7d8;border-radius:14px;padding:10px 12px}
-.gantt-label strong{display:block;font-size:14px}
-.gantt-label span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
-.gantt-trackline{height:54px;border:1px solid #eadfce;border-radius:14px;background:
-  repeating-linear-gradient(to right, transparent 0, transparent calc(var(--month-width) - 1px), #eadfce calc(var(--month-width) - 1px), #eadfce var(--month-width)),
-  #fbf7f0;}
-.gantt-bar{position:absolute;height:14px;border-radius:999px;top:50%;transform:translateY(-50%);box-shadow:0 2px 10px rgba(60,40,10,.12)}
-.gantt-empty{padding:18px 0;color:var(--muted)}
-.gantt-legend{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 14px}
-.sdf{background:#eadcf8;color:#7e4dc2}
-.prog{background:#eadfd7;color:#7a5238}
-.comm{background:#e5ecd3;color:#5f7d23}
-@media (max-width: 700px) {
   .gantt{min-width:860px}
-  .gantt-head,.gantt-row{grid-template-columns:210px 1fr}
+  .gantt-header,.gantt-row{grid-template-columns:220px 1fr}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="nav-card">
-  <div class="nav-jump">
-    <a class="branch-link home-link" href="../index.html">← Torna alla overview nazionale</a>
-  </div>
-</div>
-
+  <a class="top-link" href="../index.html">← Torna alla overview nazionale</a>
   <div class="header">
     <div>
       <h1 class="h1">Pipeline Fotovoltaico - Filiale Sassari</h1>
@@ -172,6 +126,8 @@ tbody tr td:last-child{border-right:1px solid #f0e7d8;border-radius:0 12px 12px 
     </div>
     <div class="badge">Alayan</div>
   </div>
+
+  
 
   <div class="cards">
     <div class="card"><div class="kpi-label">Progetti</div><div id="kpiProjects" class="kpi-value">0</div><div class="kpi-sub">totali in vista corrente</div></div>
@@ -193,7 +149,7 @@ tbody tr td:last-child{border-right:1px solid #f0e7d8;border-radius:0 12px 12px 
     </div>
     <div class="panel">
       <h3>MWp per provincia</h3>
-      <div id="groupBars" class="bars"></div>
+      <div id="scopeBars" class="bars "></div>
     </div>
   </div>
 
@@ -201,86 +157,77 @@ tbody tr td:last-child{border-right:1px solid #f0e7d8;border-radius:0 12px 12px 
 
   <div class="table-card">
     <div class="table-head">
-      <div>
-        <div class="table-title">Tutti i progetti</div>
-        <div class="small"><a href="../index.html" style="color:var(--blue);text-decoration:none;font-weight:700">← Torna alla overview nazionale</a></div>
-      </div>
+      <div class="table-title">Tutti i progetti</div>
       <div class="filters">
         
-        <select id="scopeFilter" class="select"><option value="">Tutte le province</option></select>
+        <select id="provFilter" class="select"><option value="">Tutte le province</option></select>
         <select id="faseFilter" class="select"><option value="">Tutte le fasi</option></select>
         <select id="stateFilter" class="select"><option value="">Tutti gli stati</option></select>
       </div>
     </div>
     <div class="table-scroll">
-    <table>
-      <thead>
-        <tr><th>Progetto</th><th>Cliente / Filiale</th><th>Provincia</th><th>MWp</th><th>Fase</th><th>Stato</th><th>Avanz.</th><th>Ultimo aggiornamento</th></tr>
-      </thead>
-      <tbody id="projectBody"></tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Progetto</th>
+            <th>Cliente / Filiale</th>
+            <th>Provincia</th>
+            <th>MWp</th>
+            <th>Fase</th>
+            <th>Stato</th>
+            <th>Avanz.</th>
+            <th>Ultimo aggiornamento</th>
+          </tr>
+        </thead>
+        <tbody id="projectBody"></tbody>
+      </table>
     </div>
-    <div class="footer">Utilizzare i filtri per visualizzare gli elementi d'interesse.</div>
+    <div class="footer">Utilizzare i filtri per visualizzare gli elementi d&apos;interesse.</div>
   </div>
 
-  <div class="gantt-card">
+  <div class="gantt-shell">
     <div class="table-head">
       <div class="table-title">Gantt chart</div>
-      <div class="small">Stessi filtri della sezione tutti i progetti.</div>
+      <div class="small">La vista segue gli stessi filtri della sezione sopra.</div>
     </div>
-    <div class="gantt-legend">
-      <span class="chip sdf">Studio di fattibilità</span>
-      <span class="chip prog">Progettazione</span>
-      <span class="chip aut">Autorizzazioni</span>
-      <span class="chip proc">Procurement</span>
-      <span class="chip costr">Costruzione</span>
-      <span class="chip comm">Commissioning</span>
+    <div class="gantt-scroll">
+      <div class="gantt" id="ganttWrap"></div>
     </div>
-    <div class="gantt-scroll"><div id="ganttWrap" class="gantt"></div></div>
   </div>
 </div>
+
 <script>
-const data = [{"filiale": "Sassari", "area": "Centro", "progetto": "Aree Sud", "cliente": "ENI PLENITUDE RENEWABLES ITALY SPA", "provincia": "Sassari", "mwp": 50.6, "stato": "In pipeline", "fase": "Autorizzazioni", "ultimo_agg": "29 Mar 2026", "avanz": 0.45, "note": "VIA approvata", "agrivoltaico": false, "gantt": [{"fase": "Autorizzazioni", "start": "2026-03-27", "end": "2026-08-31"}]}, {"filiale": "Sassari", "area": "Centro", "progetto": "F-Sassa", "cliente": "ASJA SASSARI SRL", "provincia": "Sassari", "mwp": 30.15, "stato": "In pipeline", "fase": "Autorizzazioni", "ultimo_agg": "23 Feb 2026", "avanz": 0.45, "note": "VIA approvata", "agrivoltaico": false, "gantt": [{"fase": "Autorizzazioni", "start": "2026-02-23", "end": "2026-07-31"}]}];
-const isGlobal = false;
+const PAGE_MODE = "branch";
+const PAGE_BRANCH = "Sassari";
+const PAGE_AREA = "Centro";
+const data = [{"filiale": "Sassari", "area": "Centro", "cliente": "ENI PLENITUDE RENEWABLES ITALY SPA", "progetto": "Aree Sud", "provincia": "Sassari", "comune": "Porto Torres", "regione": "Sardegna", "mwp": 50.6, "stato": "In pipeline", "fase": "Autorizzazioni", "ultimo_agg": "29 Mar 2026", "note": "VIA approvata", "agrivoltaico": false, "avanz": 0.45, "segments": [{"label": "Autorizzazioni", "start": "2026-03-27", "end": "2026-08-31"}]}, {"filiale": "Sassari", "area": "Centro", "cliente": "ASJA SASSARI SRL", "progetto": "F-Sassa", "provincia": "Sassari", "comune": "Sassari", "regione": "Sardegna", "mwp": 30.15, "stato": "In pipeline", "fase": "Autorizzazioni", "ultimo_agg": "23 Feb 2026", "note": "VIA approvata", "agrivoltaico": false, "avanz": 0.45, "segments": [{"label": "Autorizzazioni", "start": "2026-02-23", "end": "2026-07-31"}]}];
+const branchDirectory = [{"name": "Albenga", "slug": "albenga", "area": "Nord Ovest"}, {"name": "Bari", "slug": "bari", "area": "Sud"}, {"name": "Bologna", "slug": "bologna", "area": "Centro"}, {"name": "Cagliari", "slug": "cagliari", "area": "Centro"}, {"name": "Catania", "slug": "catania", "area": "Sud"}, {"name": "Firenze", "slug": "firenze", "area": "Centro"}, {"name": "Livorno", "slug": "livorno", "area": "Centro"}, {"name": "Lucca", "slug": "lucca", "area": "Centro"}, {"name": "Napoli", "slug": "napoli", "area": "Sud"}, {"name": "Perugia", "slug": "perugia", "area": "Centro"}, {"name": "Rimini", "slug": "rimini", "area": "Centro"}, {"name": "Roma Aurelia", "slug": "roma-aurelia", "area": "Sud"}, {"name": "Roma Nomentana", "slug": "roma-nomentana", "area": "Sud"}, {"name": "Sassari", "slug": "sassari", "area": "Centro"}, {"name": "Sassuolo", "slug": "sassuolo", "area": "Centro"}, {"name": "Verona", "slug": "verona", "area": "Nord Est"}];
+
+const colors = {
+  'Studio di fattibilità':'var(--violet)',
+  'Progettazione':'var(--brown)',
+  'Autorizzazioni':'var(--gold)',
+  'Procurement':'var(--blue)',
+  'Costruzione':'var(--green)',
+  'Commissioning':'var(--olive)',
+  'Da definire':'var(--neutral)'
+};
 const filters = {
   area: document.getElementById('areaFilter'),
-  scope2: document.getElementById('scopeFilter'),
+  scope: document.getElementById('provFilter'),
   fase: document.getElementById('faseFilter'),
   state: document.getElementById('stateFilter')
 };
-const scopeField = isGlobal ? 'filiale' : 'provincia';
-const phases = [...new Set(data.map(d=>d.fase).filter(Boolean))].sort();
-const states = [...new Set(data.map(d=>d.stato).filter(Boolean))].sort();
-const areas = [...new Set(data.map(d=>d.area).filter(Boolean))].sort();
-const scopeVals = [...new Set(data.map(d=>d[scopeField]).filter(Boolean))].sort();
-
-function fillSelect(el, values, placeholder, selected='') {
-  if (!el) return;
-  el.innerHTML = `<option value="">${placeholder}</option>` + values.map(v => `<option${v===selected?' selected':''}>${v}</option>`).join('');
-}
-fillSelect(filters.fase, phases, 'Tutte le fasi');
-fillSelect(filters.state, states, 'Tutti gli stati');
-fillSelect(filters.scope2, scopeVals, 'Tutte le province');
-if (filters.area) fillSelect(filters.area, areas, 'Tutte le aree');
-
-function syncScopeByArea() {
-  if (!filters.area || !isGlobal) return;
-  const prev = filters.scope2.value;
-  const allowed = [...new Set(data.filter(d => !filters.area.value || d.area === filters.area.value).map(d => d.filiale).filter(Boolean))].sort();
-  fillSelect(filters.scope2, allowed, 'Tutte le province', allowed.includes(prev) ? prev : '');
-}
-
-const colors = {"Studio di fattibilità": "#a06cd5", "Progettazione": "#8f5f3f", "Autorizzazioni": "var(--gold)", "Procurement": "var(--blue)", "Costruzione": "var(--green)", "Commissioning": "#6a8f2a", "Da definire": "#8b8378"};
 
 function fmtNum(v) {
-  return new Intl.NumberFormat('it-IT', {minimumFractionDigits:1, maximumFractionDigits:1}).format(Number(v||0));
+  return new Intl.NumberFormat('it-IT', {minimumFractionDigits:1, maximumFractionDigits:1}).format(Number(v || 0));
 }
 function phaseChip(fase) {
   if (fase === 'Procurement') return 'proc';
   if (fase === 'Costruzione') return 'costr';
-  if (fase === 'Studio di fattibilità') return 'sdf';
-  if (fase === 'Progettazione') return 'prog';
   if (fase === 'Commissioning') return 'comm';
+  if (fase === 'Studio di fattibilità') return 'std';
+  if (fase === 'Progettazione') return 'prog';
   return 'aut';
 }
 function stateChip(stato) {
@@ -288,61 +235,175 @@ function stateChip(stato) {
   if (stato === 'Completato') return 'state-completato';
   return 'state-pipeline';
 }
+function fillSelect(el, values, placeholder, selected='') {
+  if (!el) return;
+  el.innerHTML = `<option value="">${placeholder}</option>` + values.map(v => `<option ${v===selected?'selected':''}>${v}</option>`).join('');
+}
+function uniqueSorted(arr) {
+  return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b, 'it'));
+}
+const phaseValues = uniqueSorted(data.map(d=>d.fase));
+const stateValues = uniqueSorted(data.map(d=>d.stato));
+fillSelect(filters.fase, phaseValues, 'Tutte le fasi');
+fillSelect(filters.state, stateValues, 'Tutti gli stati');
+
+if (PAGE_MODE === 'global') {
+  fillSelect(filters.area, uniqueSorted(data.map(d=>d.area)), 'Tutte le aree');
+  syncScopeByArea();
+} else {
+  fillSelect(filters.scope, uniqueSorted(data.map(d=>d.provincia)), 'Tutte le province');
+}
+
+function syncScopeByArea() {
+  if (PAGE_MODE !== 'global') return;
+  const prev = filters.scope.value;
+  const allowed = uniqueSorted(data.filter(d => !filters.area.value || d.area === filters.area.value).map(d => d.filiale));
+  fillSelect(filters.scope, allowed, 'Tutte le filiali', allowed.includes(prev) ? prev : '');
+}
+if (filters.area) filters.area.addEventListener('change', () => { syncScopeByArea(); render(); });
+
 function getFiltered() {
   return data.filter(d =>
     (!filters.fase.value || d.fase === filters.fase.value) &&
-    (!filters.scope2.value || d[scopeField] === filters.scope2.value) &&
     (!filters.state.value || d.stato === filters.state.value) &&
-    (!filters.area || !filters.area.value || d.area === filters.area.value)
+    (PAGE_MODE !== 'global' || !filters.area.value || d.area === filters.area.value) &&
+    (PAGE_MODE === 'global'
+      ? (!filters.scope.value || d.filiale === filters.scope.value)
+      : (!filters.scope.value || d.provincia === filters.scope.value))
   );
 }
-function startOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
-function endOfMonth(d) { return new Date(d.getFullYear(), d.getMonth()+1, 0); }
-function monthDiff(a,b) { return (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()); }
-
+function updateJumpMenu() {
+  if (PAGE_MODE !== 'global') return;
+  const select = document.getElementById('jumpBranch');
+  if (!select) return;
+  select.innerHTML = `<option value="">Seleziona una filiale</option>` +
+    branchDirectory.map(b => `<option value="${b.slug}">${b.name}</option>`).join('');
+  document.getElementById('jumpBtn').addEventListener('click', () => {
+    if (select.value) window.location.href = `filiali/${select.value}.html`;
+  });
+}
+function renderBars(rows) {
+  const groupKey = PAGE_MODE === 'global' ? 'filiale' : 'provincia';
+  const grouped = Object.entries(rows.reduce((acc, r) => {
+    const key = r[groupKey] || '';
+    if (!key) return acc;
+    acc[key] = (acc[key] || 0) + Number(r.mwp || 0);
+    return acc;
+  }, {})).sort((a,b)=>b[1]-a[1]);
+  const max = Math.max(1, ...grouped.map(x=>x[1]), 1);
+  const bars = document.getElementById('scopeBars');
+  bars.innerHTML = grouped.map(([label, val]) => {
+    const branch = PAGE_MODE === 'global' ? branchDirectory.find(b => b.name === label) : null;
+    const labelHtml = branch
+      ? `<a class="bar-label-link" href="filiali/${branch.slug}.html">${label}</a>`
+      : `<span>${label}</span>`;
+    const wrapStart = branch ? `<div class="bar-row linkable" onclick="window.location.href='filiali/${branch.slug}.html'">` : `<div class="bar-row">`;
+    return `${wrapStart}${labelHtml}<div class="bar-track"><div class="bar-fill" style="width:${(val/max)*100}%"></div></div><div><strong>${fmtNum(val)}</strong></div></div>`;
+  }).join('');
+  return grouped;
+}
+function renderDonut(rows) {
+  const phaseCounts = uniqueSorted(rows.map(d=>d.fase)).map(p => [p, rows.filter(d=>d.fase===p).length]).filter(x=>x[1]>0);
+  const sum = Math.max(1, phaseCounts.reduce((a,b)=>a+b[1],0));
+  let curr = 0;
+  const stops = phaseCounts.map(([p,c]) => {
+    const start = curr / sum * 100;
+    curr += c;
+    const end = curr / sum * 100;
+    return `${colors[p] || 'var(--gold)'} ${start}% ${end}%`;
+  });
+  document.getElementById('donut').style.background = `conic-gradient(${stops.join(',')})`;
+  document.getElementById('phaseLegend').innerHTML = phaseCounts.map(([p,c]) =>
+    `<div class="legend-row"><span class="dot" style="background:${colors[p] || 'var(--gold)'}"></span><span>${p}</span><strong>${c}</strong></div>`
+  ).join('');
+  return phaseCounts;
+}
+function renderTable(rows) {
+  const third = PAGE_MODE === 'global' ? 'filiale' : 'provincia';
+  document.getElementById('projectBody').innerHTML = rows.map(r => `
+    <tr>
+      <td><strong>${r.progetto || ''}</strong></td>
+      <td>${r.cliente || r.filiale || ''}</td>
+      <td>${r[third] || ''}</td>
+      <td><strong>${fmtNum(r.mwp)}</strong></td>
+      <td><span class="chip ${phaseChip(r.fase)}">${r.fase || ''}</span></td>
+      <td><span class="chip ${stateChip(r.stato)}">${r.stato || ''}</span></td>
+      <td><div class="progress"><span>${Math.round((r.avanz || 0) * 100)}%</span><div class="track"><div class="fill" style="width:${Math.round((r.avanz || 0) * 100)}%"></div></div></div></td>
+      <td>${r.ultimo_agg || ''}</td>
+    </tr>
+  `).join('');
+}
+function monthSeries(rows) {
+  const dates = [];
+  rows.forEach(r => (r.segments || []).forEach(s => {
+    if (s.start) dates.push(new Date(s.start));
+    if (s.end) dates.push(new Date(s.end));
+  }));
+  if (!dates.length) {
+    const now = new Date();
+    return [new Date(now.getFullYear(), now.getMonth(), 1)];
+  }
+  let min = new Date(Math.min(...dates.map(d => d.getTime())));
+  let max = new Date(Math.max(...dates.map(d => d.getTime())));
+  min = new Date(min.getFullYear(), min.getMonth(), 1);
+  max = new Date(max.getFullYear(), max.getMonth(), 1);
+  const months = [];
+  const cursor = new Date(min);
+  while (cursor <= max) {
+    months.push(new Date(cursor));
+    cursor.setMonth(cursor.getMonth() + 1);
+  }
+  return months;
+}
+function monthName(d) {
+  return d.toLocaleDateString('it-IT', {month:'short', year:'numeric'});
+}
 function renderGantt(rows) {
-  const ganttWrap = document.getElementById('ganttWrap');
-  const segments = rows.flatMap(r => (r.gantt||[]).map(s => ({...s, progetto:r.progetto, cliente:r.cliente, scope:r[scopeField], mwp:r.mwp})));
-  if (!segments.length) {
-    ganttWrap.innerHTML = '<div class="gantt-empty">Nessuna data Gantt disponibile per i filtri correnti.</div>';
+  const el = document.getElementById('ganttWrap');
+  const rowsWithSeg = rows.filter(r => (r.segments || []).length);
+  if (!rowsWithSeg.length) {
+    el.innerHTML = '<div class="gantt-empty">Nessuna data disponibile per costruire la Gantt con i filtri correnti.</div>';
     return;
   }
-  const starts = segments.map(s => new Date(s.start));
-  const ends = segments.map(s => new Date(s.end));
-  let minDate = startOfMonth(new Date(Math.min(...starts)));
-  let maxDate = endOfMonth(new Date(Math.max(...ends)));
-  const monthCount = monthDiff(minDate, maxDate) + 1;
-  const monthWidth = 96;
-  const timelineWidth = monthCount * monthWidth;
-  const monthsHtml = Array.from({length: monthCount}, (_, i) => {
-    const d = new Date(minDate.getFullYear(), minDate.getMonth()+i, 1);
-    const label = d.toLocaleDateString('it-IT', {month:'short', year:'numeric'});
-    return `<div class="gantt-month" style="left:${i*monthWidth}px;width:${monthWidth}px">${label}</div>`;
-  }).join('');
-  const rowHtml = rows.map(r => {
-    const segs = (r.gantt||[]).map(s => {
-      const sDate = new Date(s.start);
-      const eDate = new Date(s.end);
-      const left = ((sDate - minDate) / 86400000) * (monthWidth/30.4375);
-      const days = Math.max(1, ((eDate - sDate) / 86400000) + 1);
-      const width = Math.max(8, days * (monthWidth/30.4375));
-      const color = colors[s.fase] || 'var(--gold)';
-      return `<div class="gantt-bar" title="${s.fase} · ${s.start} → ${s.end}" style="left:${left}px;width:${width}px;background:${color}"></div>`;
-    }).join('');
-    return `<div class="gantt-row">
-      <div class="gantt-label"><strong>${r.progetto}</strong><span>${r.cliente || ''} · ${r[scopeField] || ''} · ${fmtNum(r.mwp)} MWp</span></div>
-      <div class="gantt-trackline" style="width:${timelineWidth}px;--month-width:${monthWidth}px">${segs}</div>
-    </div>`;
-  }).join('');
-  ganttWrap.innerHTML = `<div class="gantt"><div class="gantt-head"><div class="gantt-label-head">Progetto</div><div class="gantt-months" style="width:${timelineWidth}px">${monthsHtml}</div></div>${rowHtml}</div>`;
-}
+  const months = monthSeries(rowsWithSeg);
+  const monthStart = months[0];
+  const monthEnd = new Date(months[months.length - 1].getFullYear(), months[months.length - 1].getMonth() + 1, 1);
+  const total = Math.max(1, monthEnd - monthStart);
 
+  let html = `
+    <div class="gantt-header">
+      <div class="gantt-label">Progetto</div>
+      <div class="gantt-timeline" style="--months:${months.length}">
+        ${months.map(m => `<div class="gantt-month">${monthName(m)}</div>`).join('')}
+      </div>
+    </div>
+  `;
+  html += rowsWithSeg.map(r => {
+    const segs = (r.segments || []).map(s => {
+      const start = new Date(s.start);
+      const end = new Date(s.end);
+      const left = ((start - monthStart) / total) * 100;
+      const width = Math.max(1.8, ((new Date(end.getFullYear(), end.getMonth()+1, 1) - start) / total) * 100);
+      return `<div class="gantt-seg" title="${s.label}: ${s.start} → ${s.end}" style="left:${left}%;width:${width}%;background:${colors[s.label] || 'var(--gold)'}"></div>`;
+    }).join('');
+    return `
+      <div class="gantt-row">
+        <div>
+          <div class="gantt-name">${r.progetto || ''}</div>
+          <div class="gantt-sub">${r.cliente || r.filiale || ''}</div>
+        </div>
+        <div class="gantt-track" style="--months:${months.length}">${segs}</div>
+      </div>
+    `;
+  }).join('');
+  el.innerHTML = html;
+}
 function render() {
   const rows = getFiltered();
   const totalProjects = rows.length;
   const totalMwp = rows.reduce((a,b)=>a + Number(b.mwp || 0), 0);
   const buildCount = rows.filter(d=>d.fase === 'Costruzione').length;
-  const agriCount = rows.filter(d=> (d.note || '').toLowerCase().includes('agrivoltaico')).length;
+  const agriCount = rows.filter(d => (d.note || '').toLowerCase().includes('agrivoltaico')).length;
 
   document.getElementById('kpiProjects').textContent = totalProjects;
   document.getElementById('kpiMwp').textContent = fmtNum(totalMwp);
@@ -350,51 +411,22 @@ function render() {
   document.getElementById('kpiAgri').textContent = agriCount;
   document.getElementById('donutTotal').textContent = totalProjects;
 
-  const phaseCounts = phases.map(p => [p, rows.filter(d=>d.fase===p).length]).filter(x=>x[1]>0);
-  const sum = Math.max(1, phaseCounts.reduce((a,b)=>a+b[1],0));
-  let curr = 0;
-  const stops = phaseCounts.map(([p,c]) => {
-    const start = curr/sum*100;
-    curr += c;
-    const end = curr/sum*100;
-    return `${colors[p] || 'var(--gold)'} ${start}% ${end}%`;
-  });
-  document.getElementById('donut').style.background = `conic-gradient(${stops.join(',')})`;
-  document.getElementById('phaseLegend').innerHTML = phaseCounts.map(([p,c]) =>
-    `<div class="legend-row"><span class="dot" style="background:${colors[p]||'var(--gold)'}"></span><span>${p}</span><strong>${c}</strong></div>`
-  ).join('');
+  const phaseCounts = renderDonut(rows);
+  const grouped = renderBars(rows);
+  renderTable(rows);
+  renderGantt(rows);
 
-  const groupMap = Object.entries(rows.reduce((acc,r)=>{acc[r[scopeField]]=(acc[r[scopeField]]||0)+Number(r.mwp||0); return acc;}, {}))
-      .filter(x=>x[0]).sort((a,b)=>b[1]-a[1]);
-  const maxGroup = Math.max(1, ...groupMap.map(x=>x[1]), 1);
-  document.getElementById('groupBars').innerHTML = groupMap.map(([p,v]) =>
-    `<div class="bar-row"><div>${p}</div><div class="bar-track"><div class="bar-fill" style="width:${(v/maxGroup)*100}%"></div></div><div><strong>${fmtNum(v)}</strong></div></div>`
-  ).join('');
-
-  const topGroup = groupMap[0];
+  const topGroup = grouped[0];
   const topPhase = phaseCounts.slice().sort((a,b)=>b[1]-a[1])[0];
+  const groupLabel = PAGE_MODE === 'global' ? 'La filiale più pesante è' : 'La provincia più pesante è';
   document.getElementById('insightBox').innerHTML =
     `<strong>Lettura rapida.</strong> ${totalProjects} progetti per <strong>${fmtNum(totalMwp)} MWp</strong>. ` +
-    (topGroup ? `Il blocco più pesante è <strong>${topGroup[0]}</strong> con <strong>${fmtNum(topGroup[1])} MWp</strong>. ` : '') +
+    (topGroup ? `${groupLabel} <strong>${topGroup[0]}</strong> con <strong>${fmtNum(topGroup[1])} MWp</strong>. ` : '') +
     (topPhase ? `La fase dominante resta <strong>${topPhase[0]}</strong> con <strong>${topPhase[1]}</strong> progetti.` : '');
-
-  document.getElementById('projectBody').innerHTML = rows.map(r =>
-    `<tr>
-      <td><strong>${r.progetto}</strong></td>
-      <td>${r.cliente || r.filiale || ''}</td>
-      <td>${r[scopeField] || ''}</td>
-      <td><strong>${fmtNum(r.mwp)}</strong></td>
-      <td><span class="chip ${phaseChip(r.fase)}">${r.fase || ''}</span></td>
-      <td><span class="chip ${stateChip(r.stato)}">${r.stato || ''}</span></td>
-      <td><div class="progress"><span>${Math.round((r.avanz||0)*100)}%</span><div class="track"><div class="fill" style="width:${Math.round((r.avanz||0)*100)}%"></div></div></div></td>
-      <td>${r.ultimo_agg || ''}</td>
-    </tr>`
-  ).join('');
-  renderGantt(rows);
 }
-if (filters.area) filters.area.addEventListener('change', () => { syncScopeByArea(); render(); });
-[filters.scope2, filters.fase, filters.state].filter(Boolean).forEach(el => el.addEventListener('change', render));
-syncScopeByArea();
+
+[filters.scope, filters.fase, filters.state].forEach(el => el && el.addEventListener('change', render));
+updateJumpMenu();
 render();
 </script>
 </body>
