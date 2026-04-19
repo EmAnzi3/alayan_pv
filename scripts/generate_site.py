@@ -591,9 +591,9 @@ function render() {{
   const topPhase = phaseCounts.slice().sort((a,b)=>b[1]-a[1])[0];
   const groupLabel = PAGE_MODE === 'global' ? 'La filiale più pesante è' : 'La provincia più pesante è';
   document.getElementById('insightBox').innerHTML =
-    `<strong>Lettura rapida.</strong> ${totalProjects} progetti per <strong>${fmtNum(totalMwp)} MWp</strong>. ` +
-    (topGroup ? `${groupLabel} <strong>${topGroup[0]}</strong> con <strong>${fmtNum(topGroup[1])} MWp</strong>. ` : '') +
-    (topPhase ? `La fase dominante resta <strong>${topPhase[0]}</strong> con <strong>${topPhase[1]}</strong> progetti.` : '');
+    `<strong>Lettura rapida.</strong> ${{totalProjects}} progetti per <strong>${{fmtNum(totalMwp)}} MWp</strong>. ` +
+    (topGroup ? `${{groupLabel}} <strong>${{topGroup[0]}}</strong> con <strong>${{fmtNum(topGroup[1])}} MWp</strong>. ` : '') +
+    (topPhase ? `La fase dominante resta <strong>${{topPhase[0]}}</strong> con <strong>${{topPhase[1]}}</strong> progetti.` : '');
 }}
 
 [filters.scope, filters.fase, filters.state].forEach(el => el && el.addEventListener('change', render));
