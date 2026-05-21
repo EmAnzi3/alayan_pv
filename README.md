@@ -2,6 +2,7 @@
 
 ## File inclusi
 - scripts/config.json
+- scripts/generate_site.py
 - scripts/aggiorna_sito_auto.bat
 - scripts/run_task_scheduler.ps1
 - scripts/task_scheduler_hourly.xml
@@ -18,6 +19,18 @@
 - Git installato e disponibile nel PATH
 - repo locale già collegato a GitHub
 - OneDrive sincronizzato in locale
+
+## Configurazione (portabile)
+Lo script legge `scripts/config.json` ma consente override tramite variabili ambiente:
+
+- `ALAYAN_EXCEL_AGGREGATORE_DIR`
+- `ALAYAN_EXCEL_FILIALI_DIR`
+- `ALAYAN_REPO_ROOT_DIR`
+- `ALAYAN_DOCS_DIR`
+- `ALAYAN_AGGREGATORE_FILENAME`
+- `ALAYAN_BRANCH_NAME`
+
+In caso di path errati/mancanti lo script termina con messaggio esplicito.
 
 ## Uso manuale
 Doppio clic su:

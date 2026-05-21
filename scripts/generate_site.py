@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 from openpyxl import load_workbook
 from datetime import datetime, date
 import json, re, shutil
@@ -165,10 +166,36 @@ def normalize_num(v):
     except Exception:
         return 0.0
 
+def _require_existing_dir(path_value, key_name):
+    p = Path(path_value)
+    if not p.exists() or not p.is_dir():
+        raise FileNotFoundError(f"Configurazione non valida: '{key_name}' -> directory non trovata: {p}")
+    return p
+
+def _require_existing_file(path_value, key_name):
+    p = Path(path_value)
+    if not p.exists() or not p.is_file():
+        raise FileNotFoundError(f"Configurazione non valida: '{key_name}' -> file non trovato: {p}")
+    return p
+
 def load_config():
     cfg_path = Path(__file__).with_name("config.json")
     with cfg_path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+        cfg = json.load(f)
+
+    env_map = {
+        "excel_aggregatore_dir": "ALAYAN_EXCEL_AGGREGATORE_DIR",
+        "excel_filiali_dir": "ALAYAN_EXCEL_FILIALI_DIR",
+        "repo_root_dir": "ALAYAN_REPO_ROOT_DIR",
+        "docs_dir": "ALAYAN_DOCS_DIR",
+        "aggregatore_filename": "ALAYAN_AGGREGATORE_FILENAME",
+        "branch_name": "ALAYAN_BRANCH_NAME",
+    }
+    for k, env_name in env_map.items():
+        env_val = os.getenv(env_name)
+        if env_val:
+            cfg[k] = env_val
+    return cfg
 
 def read_sheet_rows(xlsx_path):
     wb = load_workbook(xlsx_path, data_only=True)
@@ -605,13 +632,13 @@ render();
 
 def main():
     cfg = load_config()
-    agg_dir = Path(cfg["excel_aggregatore_dir"])
-    filiali_dir = Path(cfg["excel_filiali_dir"])
-    repo_root = Path(cfg["repo_root_dir"])
+    agg_dir = _require_existing_dir(cfg["excel_aggregatore_dir"], "excel_aggregatore_dir")
+    filiali_dir = _require_existing_dir(cfg["excel_filiali_dir"], "excel_filiali_dir")
+    repo_root = _require_existing_dir(cfg["repo_root_dir"], "repo_root_dir")
     docs_dir = Path(cfg["docs_dir"])
     docs_filiali = docs_dir / "filiali"
     docs_filiali.mkdir(parents=True, exist_ok=True)
-    agg_file = agg_dir / cfg["aggregatore_filename"]
+    agg_file = _require_existing_file(agg_dir / cfg["aggregatore_filename"], "aggregatore_filename")
 
     global_rows, _, _ = read_sheet_rows(agg_file)
 
