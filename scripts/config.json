@@ -1,0 +1,8 @@
+{
+  "excel_aggregatore_dir": "<CONFIGURARE_LOCALMENTE>",
+  "excel_filiali_dir": "<CONFIGURARE_LOCALMENTE>",
+  "repo_root_dir": "<CONFIGURARE_LOCALMENTE>",
+  "docs_dir": "<CONFIGURARE_LOCALMENTE>",
+  "aggregatore_filename": "Fotovoltaico_Aggregatore.xlsx",
+  "branch_name": "main"
+}

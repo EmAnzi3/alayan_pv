@@ -1,0 +1,18 @@
+# File Excel aziendali
+input_xlsx/
+*.xlsx
+*.xls
+
+# Configurazioni locali
+scripts/config.local.json
+.env
+.env.*
+
+# Output locali non destinati a GitHub
+reports/
+exports/
+backups/
+
+# Python
+__pycache__/
+*.pyc
